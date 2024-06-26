@@ -5,6 +5,7 @@ import { Route, Routes } from 'react-router-dom';
 import NavBar from './components/NavBar';
 // src/App.jsx
 import PokemonDetails from './components/PokemonDetails';
+import PokemonForm from './components/PokemonForm';
 
 
 const initialState = [
@@ -17,6 +18,10 @@ const initialState = [
 
 const App = () => {
   const [pokemon, setPokemon] = useState(initialState);
+  const addPokemon = (newPokemonData) => {
+    newPokemonData._id = pokemon.length + 1;
+    setPokemon([...pokemon, newPokemonData]);
+  };
   return (
     <>
       <h1>Pokemon!</h1>
@@ -28,6 +33,7 @@ const App = () => {
     path="/pokemon/:pokemonId"
     element={<PokemonDetails pokemon={pokemon} />}
   />
+ <Route path="/pokemon/new" element={<PokemonForm addPokemon={addPokemon} />} />
   <Route path="*" element={<h2>Whoops, nothing here!</h2>} />
 </Routes>
     </>
